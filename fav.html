@@ -7,6 +7,12 @@
     <title>DeezWeb - Favoris</title>
     <link rel="stylesheet" href="index.css">
 </head>
+<style>
+.musicFav {
+    display: flex;
+            flex-wrap: wrap
+}
+</style>
 <body>
     <header>
         <nav>
@@ -17,5 +23,18 @@
             </ul>
         </nav>
     </header>
+    <main>
+        <section class="musicFav">
+
+        </section>
+        <script src="node_modules/jquery/dist/jquery.min.js"></script>
+        <script>
+            for (var i = 0; i<localStorage.length; i++){
+                var valueFav = JSON.parse(localStorage.getItem("music"+i))
+                console.log(valueFav);
+                $('.musicFav').append("<div class='music-cartouche'><img src='"+valueFav[0]+"'></img><audio controls><source src='"+valueFav[1]+"'></audio><p>"+valueFav[2]+"</p><p>"+valueFav[3]+"</p><button class='buttonFav'>Fav</button></div>")
+            }
+        </script>
+    </main>
 </body>
 </html>

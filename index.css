@@ -39,3 +39,25 @@ border-right: 2px solid white
 main {
     padding: 50px 5% 0 5%;
 }
+.music-cartouche {
+    height: 300px;
+    width: 300px;
+    border: 1px solid black;
+}
+.music-cartouche img {
+    width: 150px;
+    margin-left: 75px;
+    margin-top: 10px;
+}
+.music-cartouche .row1 span {
+   margin-left: auto;
+   margin-right: 5px
+
+}
+.music-cartouche p {
+    margin: 0;
+    text-align: center;
+}
+.music-cartouche audio {
+    width: 100%
+}
