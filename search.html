@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DeezWeb - Recherche</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .musique {
+            display: flex;
+            flex-wrap: wrap
+        }
+.music-cartouche {
+    height: 300px;
+    width: 300px;
+    border: 1px solid black;
+}
+.music-cartouche img {
+    width: 150px;
+    margin-left: 75px;
+    margin-top: 10px;
+}
+.row1 {
+    display: flex;
+    align-items: center;
+}
+.music-cartouche .row1 span {
+   margin-left: auto;
+   margin-right: 5px
+
+}
+.music-cartouche p {
+    margin: 0;
+    text-align: center;
+}
+.music-cartouche audio {
+    width: 100%
+}
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="search.html">Rechercher</a></li>
+                <li><a href="fav.html">Mes favoris</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <form action="" id="form-search">
+                <input type="text">
+                <select id='order'>
+                    <option value="ALBUM DESC">Album</option>
+                    <option value="ARTIST DESC">Artiste</option>
+                    <option value="TRACK DESC">Musique</option>
+                    <option value="RANKING">Les plus populaires</option>
+                    <option value="RATING DESC">Les mieux notés</option>
+                </select>
+                <input type="submit">
+            </form>
+        </section>
+        <section class="musique">
+
+        </section>
+    </main>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+$('#form-search').on('submit',function(e){
+e.preventDefault();
+console.log($('#form-search select').val())
+$('.musique').html('')
+$.ajax({
+    url : 'https://api.deezer.com/search?q='+$('#form-search input[type=text]').val()+'&output=jsonp&order='+$('#form-search select').val()+'',
+    dataType : 'jsonp'
+}).done(function(musiques) {
+    console.log(musiques.data)
+    for(var i = 0; i<musiques.data.length; i++){
+       $('.musique').append("<div class='music-cartouche'><img src='"+musiques.data[i].album.cover_medium+"'></img><audio controls><source src='"+musiques.data[i].preview+"'></audio><p>"+musiques.data[i].artist.name+"</p><p>"+musiques.data[i].title+" / "+musiques.data[i].album.title+"</p><button>Fav</button></div>")
+    }
+})
+
+});
+    </script>
+</body>
+</html>

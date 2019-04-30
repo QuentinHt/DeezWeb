@@ -1,0 +1,41 @@
+body {
+    margin: 0
+}
+header nav {
+background-color: rgb(48, 48, 48);
+height: 40px;
+padding: 5px 0;
+position: fixed;
+width: 100%
+}
+header nav ul {
+display: flex;
+padding: 0;
+margin: 0;
+height: 40px;
+align-items: center
+}
+header nav ul li {
+list-style-type: none;
+padding: 0 20px;
+height: 40px;
+line-height: 40px;
+cursor: pointer;
+font-family: Josefin Sans;
+transition: 0.5s
+}
+header nav ul li a {
+    color: white;
+    text-decoration: none
+}
+header nav ul li:hover {
+background-color: rgb(19, 19, 19);
+transition: 0.5s
+}
+header nav ul li:nth-of-type(2) {
+border-left: 2px solid white;
+border-right: 2px solid white
+}
+main {
+    padding: 50px 5% 0 5%;
+}
