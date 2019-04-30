@@ -61,3 +61,6 @@ main {
 .music-cartouche audio {
     width: 100%
 }
+.hiddenID {
+    display: none
+}
