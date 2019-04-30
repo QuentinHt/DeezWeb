@@ -64,7 +64,6 @@
             </form>
         </section>
         <section class="musique">
-
         </section>
     </main>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
@@ -79,11 +78,18 @@ $.ajax({
 }).done(function(musiques) {
     console.log(musiques.data)
     for(var i = 0; i<musiques.data.length; i++){
-       $('.musique').append("<div class='music-cartouche'><img src='"+musiques.data[i].album.cover_medium+"'></img><audio controls><source src='"+musiques.data[i].preview+"'></audio><p>"+musiques.data[i].artist.name+"</p><p>"+musiques.data[i].title+" / "+musiques.data[i].album.title+"</p><button>Fav</button></div>")
+       $('.musique').append("<div class='music-cartouche'><img src='"+musiques.data[i].album.cover_medium+"'></img><audio controls><source src='"+musiques.data[i].preview+"'></audio><p>"+musiques.data[i].artist.name+"</p><p>"+musiques.data[i].title+" / "+musiques.data[i].album.title+"</p><button class='buttonFav'>Fav</button></div>")
     }
 })
-
 });
+var compteurCle = 0
+$('.musique').on('click','.buttonFav',function(){
+    var reachMusic = $(this).parent();
+    var value = [reachMusic.children('img').attr('src'),reachMusic.children('audio').children('source').attr('src'),reachMusic.children('p:nth-of-type(1)').html(),reachMusic.children('p:nth-of-type(2)').html()]
+    localStorage.setItem("music"+compteurCle,JSON.stringify(value));
+    console.log(JSON.parse(localStorage.getItem("music")))
+    compteurCle += 1
+})
     </script>
 </body>
 </html>
