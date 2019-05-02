@@ -66,8 +66,12 @@
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
-        if (localStorage.length != 0) {
-            var favAleatoire = 'music' + entierAleatoire(0, localStorage.length);
+        if (localStorage.getItem('compteurCle') != 0) {
+            var favAleatoire = 'music' + entierAleatoire(0, localStorage.getItem('compteurCle'));
+            while(localStorage.getItem(favAleatoire) == undefined){
+                favAleatoire = 'music' + entierAleatoire(0, localStorage.getItem('compteurCle'));
+                console.log(favAleatoire)
+            }
             var valueFavIndex = JSON.parse(localStorage.getItem(favAleatoire))
             $('.SectionFav').html("<div class='music-cartouche'><img src='" + valueFavIndex[0] + "'></img><audio controls><source src='" + valueFavIndex[1] + "'></audio><p>" + valueFavIndex[2] + "</p><p>" + valueFavIndex[3] + "</p><button class='buttonFav'>Fav</button></div>")
         }
