@@ -44,39 +44,62 @@
     </main>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script>
+
+        // Initialisation de la valeur de CompteurCle dans le localStorage si elle n'existe pas déjà
+
         if (localStorage.getItem('compteurCle') == undefined) {
             localStorage.setItem('compteurCle', 0);
         }
+
+        // Fonction à l'envoi du formulaire pour afficher les musiques correspondants à la recherche
+
         $('#form-search').on('submit', function (e) {
             e.preventDefault();
-            console.log($('#form-search select').val())
+
+            // Nettoyage des résultats de la recherche précédente
+
             $('.musique').html('')
+
+            // Mise en place de l'appel ajax 
+
             $.ajax({
                 url: 'https://api.deezer.com/search?q=' + $('#form-search input[type=text]').val() + '&output=jsonp&order=' + $('#form-search select').val() + '',
                 dataType: 'jsonp'
             }).done(function (musiques) {
+
+                // Affichage des musiques obtenues après l'envoi du formulaire
+
                 for (var i = 0; i < musiques.data.length; i++) {
                     $('.musique').append("<div class='music-cartouche'><img src='" + musiques.data[i].album.cover_medium + "'></img><audio controls><source src='" + musiques.data[i].preview + "'></audio><p>" + musiques.data[i].artist.name + "</p><p>" + musiques.data[i].title + " / " + musiques.data[i].album.title + "</p><button class='buttonFav'>Fav<span class='hiddenInf'></span></button><span class='hiddenInf'>" + musiques.data[i].id + "</span></div>")
                 }
-                for (var j = 0; j < localStorage.getItem('compteurCle'); j++) {
-                    if (localStorage.getItem('music' + j) != undefined) {
+
+                // Modification de la cartouche de la musique si elle fait déjà parti des favoris 
+
+                for (var j = 1; j < Object.keys(localStorage).length; j++) {
                         for (var k = 0; k < $('.musique').children().length; k++) {
-                            if (JSON.parse(localStorage.getItem("music" + j))[4] == musiques.data[k].id) {
+                            if (JSON.parse(localStorage.getItem(Object.keys(localStorage)[j]))[4] == musiques.data[k].id) {
                                 $('.musique').children('div:nth-of-type(' + (k + 1) + ')').children('button').css('background-color', 'red')
                                 $('.musique').children('div:nth-of-type(' + (k + 1) + ')').children('button').children('span').html('music' + j)
                             }
                         }
-                    }
                 }
             })
         });
-        var test = JSON.stringify(localStorage)
-        console.log(localStorage.getItem(1))
+
+        // Ajout d'une musique en favori au clic sur le bouton favori
+
         $('.musique').on('click', '.buttonFav', function () {
+
+            // Si la musique est déjà en favori on la retire et on modifie le bouton favori
+
             if ($(this).css('background-color') === "rgb(255, 0, 0)") {
                 $(this).css('background-color', 'white');
                 localStorage.removeItem($(this).children('span').text())
-            } else {
+            } 
+            
+            // Si elle n'y est pas, on la rajoute dans le localStorage et on modifie sa forme.
+
+            else {
                 $(this).css('background-color', 'rgb(255, 0, 0)');
                 var compteurCle = localStorage.getItem('compteurCle');
                 var reachMusic = $(this).parent();
