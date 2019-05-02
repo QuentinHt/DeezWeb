@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +12,9 @@
             display: flex;
             flex-wrap: wrap
         }
-
     </style>
 </head>
+
 <body>
     <header>
         <nav>
@@ -43,36 +44,50 @@
     </main>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script>
-$('#form-search').on('submit',function(e){
-e.preventDefault();
-console.log($('#form-search select').val())
-$('.musique').html('')
-$.ajax({
-    url : 'https://api.deezer.com/search?q='+$('#form-search input[type=text]').val()+'&output=jsonp&order='+$('#form-search select').val()+'',
-    dataType : 'jsonp'
-}).done(function(musiques) {
-    console.log(musiques.data)
-    for(var i = 0; i<musiques.data.length; i++){
-       $('.musique').append("<div class='music-cartouche'><img src='"+musiques.data[i].album.cover_medium+"'></img><audio controls><source src='"+musiques.data[i].preview+"'></audio><p>"+musiques.data[i].artist.name+"</p><p>"+musiques.data[i].title+" / "+musiques.data[i].album.title+"</p><button class='buttonFav'>Fav</button><span class='hiddenID'>"+musiques.data[i].id+"</span></div>")
-    }
-    for(var j = 0; j<localStorage.length; j++){
-        for(var k = 0; k < $('.musique').children().length; k++){
-            if(JSON.parse(localStorage.getItem("music"+j))[4] == musiques.data[k].id){
-                $('.musique').children('div:nth-of-type('+(k+1)+')').children('button').css('background-color','red')
-            }
+        if(localStorage.getItem('compteurCle') == undefined){
+            localStorage.setItem('compteurCle',0);
         }
-    }
-})
-});
-var compteurCle = 0
-$('.musique').on('click','.buttonFav',function(){
-    compteurCle = localStorage.length;
-    var reachMusic = $(this).parent();
-    var value = [reachMusic.children('img').attr('src'),reachMusic.children('audio').children('source').attr('src'),reachMusic.children('p:nth-of-type(1)').html(),reachMusic.children('p:nth-of-type(2)').html(),reachMusic.children('span').html()]
-    localStorage.setItem("music"+compteurCle,JSON.stringify(value));
-    console.log(JSON.parse(localStorage.getItem("music")))
-    compteurCle += 1
-})
+        $('#form-search').on('submit', function (e) {
+            e.preventDefault();
+            console.log($('#form-search select').val())
+            $('.musique').html('')
+            $.ajax({
+                url: 'https://api.deezer.com/search?q=' + $('#form-search input[type=text]').val() + '&output=jsonp&order=' + $('#form-search select').val() + '',
+                dataType: 'jsonp'
+            }).done(function (musiques) {
+                for (var i = 0; i < musiques.data.length; i++) {
+                    $('.musique').append("<div class='music-cartouche'><img src='" + musiques.data[i].album.cover_medium + "'></img><audio controls><source src='" + musiques.data[i].preview + "'></audio><p>" + musiques.data[i].artist.name + "</p><p>" + musiques.data[i].title + " / " + musiques.data[i].album.title + "</p><button class='buttonFav'>Fav<span class='hiddenInf'></span></button><span class='hiddenInf'>" + musiques.data[i].id + "</span></div>")
+                }
+                for (var j = 0; j < localStorage.getItem('compteurCle'); j++) {
+                    if (localStorage.getItem('music'+j)!= undefined){
+                    for (var k = 0; k < $('.musique').children().length; k++) {
+                        if (JSON.parse(localStorage.getItem("music" + j))[4] == musiques.data[k].id) {
+                            $('.musique').children('div:nth-of-type(' + (k + 1) + ')').children('button').css('background-color', 'red')
+                            $('.musique').children('div:nth-of-type(' + (k + 1) + ')').children('button').children('span').html('music'+j)
+                        }
+                    }
+                }
+                }
+            })
+        });
+        var test = JSON.stringify(localStorage)
+        console.log(localStorage.getItem(1))
+        $('.musique').on('click', '.buttonFav', function () {
+            if ($(this).css('background-color') === "rgb(255, 0, 0)") {
+                $(this).css('background-color', 'white');
+                localStorage.removeItem($(this).children('span').text())
+            } else {
+                $(this).css('background-color', 'rgb(255, 0, 0)');
+                var compteurCle = localStorage.getItem('compteurCle');
+                var reachMusic = $(this).parent();
+                var value = [reachMusic.children('img').attr('src'), reachMusic.children('audio').children('source').attr('src'), reachMusic.children('p:nth-of-type(1)').html(), reachMusic.children('p:nth-of-type(2)').html(), reachMusic.children('span').html()]
+                localStorage.setItem("music" + compteurCle, JSON.stringify(value));
+                $(this).children('span').html('music'+compteurCle)
+                compteurCle = parseInt(compteurCle, 10) + 1
+                localStorage.setItem('compteurCle',compteurCle);
+            }
+        })
     </script>
 </body>
+
 </html>

@@ -1,66 +1,84 @@
 body {
     margin: 0
 }
+
 header nav {
-background-color: rgb(48, 48, 48);
-height: 40px;
-padding: 5px 0;
-position: fixed;
-width: 100%
+    background-color: rgb(48, 48, 48);
+    height: 40px;
+    padding: 5px 0;
+    position: fixed;
+    width: 100%
 }
+
 header nav ul {
-display: flex;
-padding: 0;
-margin: 0;
-height: 40px;
-align-items: center
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    height: 40px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center
 }
+
 header nav ul li {
-list-style-type: none;
-padding: 0 20px;
-height: 40px;
-line-height: 40px;
-cursor: pointer;
-font-family: Josefin Sans;
-transition: 0.5s
+    list-style-type: none;
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    font-family: Josefin Sans;
+    -webkit-transition: 0.5s;
+    transition: 0.5s
 }
+
 header nav ul li a {
     color: white;
     text-decoration: none
 }
+
 header nav ul li:hover {
-background-color: rgb(19, 19, 19);
-transition: 0.5s
+    background-color: rgb(19, 19, 19);
+    -webkit-transition: 0.5s;
+    transition: 0.5s
 }
+
 header nav ul li:nth-of-type(2) {
-border-left: 2px solid white;
-border-right: 2px solid white
+    border-left: 2px solid white;
+    border-right: 2px solid white
 }
+
 main {
     padding: 50px 5% 0 5%;
 }
+
 .music-cartouche {
     height: 300px;
     width: 300px;
     border: 1px solid black;
 }
+
 .music-cartouche img {
     width: 150px;
     margin-left: 75px;
     margin-top: 10px;
 }
-.music-cartouche .row1 span {
-   margin-left: auto;
-   margin-right: 5px
 
+.music-cartouche .row1 span {
+    margin-left: auto;
+    margin-right: 5px
 }
+
 .music-cartouche p {
     margin: 0;
     text-align: center;
 }
+
 .music-cartouche audio {
     width: 100%
 }
-.hiddenID {
+
+.hiddenInf {
     display: none
 }
