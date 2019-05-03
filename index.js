@@ -48,10 +48,10 @@
          url: 'https://api.deezer.com/chart?output=jsonp',
          dataType: 'jsonp'
      }).done(function (musiques) {
-             // Affichage des musiques obtenues après l'envoi du formulaire
+         // Affichage des musiques obtenues après l'envoi du formulaire
 
          for (var i = 0; i < musiques.tracks.data.length; i++) {
-             $('.mainSearch').children('.musique').append("<div class='music-cartouche'><i class='far fa-star buttonFav'></i><img src='" + musiques.tracks.data[i].album.cover_medium + "'></img><audio controls><source src='" + musiques.tracks.data[i].preview + "'></audio><p>" + musiques.tracks.data[i].title + "</p><p>" + musiques.tracks.data[i].artist.name + " - " + musiques.tracks.data[i].album.title + "</p><span class='hiddenInf'>" + musiques.tracks.data[i].id + "</span></div>")
+             $('.mainSearch').children('.musique').children('.musicTop50').append("<div class='music-cartouche'><i class='far fa-star buttonFav'></i><img src='" + musiques.tracks.data[i].album.cover_medium + "'></img><audio controls><source src='" + musiques.tracks.data[i].preview + "'></audio><p>" + musiques.tracks.data[i].title + "</p><p>" + musiques.tracks.data[i].artist.name + " - " + musiques.tracks.data[i].album.title + "</p><span class='hiddenInf'>" + musiques.tracks.data[i].id + "</span></div>")
          }
          for (var i = 0; i < 5; i++) {
              $('.mainSearch').children('section:nth-of-type(1)').children('.actuMusic').children('.buttonArtist').children('button:nth-of-type(' + (i + 1) + ')').html(musiques.artists.data[i].name)
@@ -94,19 +94,57 @@
          })
      });
 
-     $('.actuMusic .buttonArtist button').click(function() {
-        $.ajax({
-            url: 'https://api.deezer.com/search?q=' + $(this).text() + '&output=jsonp&order=ARTIST_DESC',
-            dataType: 'jsonp'
-        }).done(function (musiques) {
-            
-            // Affichage des musiques obtenues après l'envoi du formulaire
+     $('.actuMusic .buttonArtist button').click(function () {
+         console.log($(this).text())
+         $.ajax({
+             url: 'https://api.deezer.com/search?q=' + $(this).text() + '&output=jsonp&order=RANKING',
+             dataType: 'jsonp'
+         }).done(function (musiques) {
+             console.log(musiques)
+             $('.mainSearch').children('.musique').html('');
+             // Affichage des musiques obtenues après l'envoi du formulaire
 
-            for (var i = 0; i < musiques.data.length; i++) {
-                $('.mainSearch').children('.musique').append("<div class='music-cartouche'><i class='far fa-star buttonFav'></i><img src='" + musiques.data[i].album.cover_medium + "'></img><audio controls><source src='" + musiques.data[i].preview + "'></audio><p>" + musiques.data[i].title + "</p><p>" + musiques.data[i].artist.name + " - " + musiques.data[i].album.title + "</p><span class='hiddenInf'>" + musiques.data[i].id + "</span></div>")
-            }
+             for (var i = 0; i < 15; i++) {
+                 $('.mainSearch').children('.musique').append("<div class='music-cartouche'><i class='far fa-star buttonFav'></i><img src='" + musiques.data[i].album.cover_medium + "'></img><audio controls><source src='" + musiques.data[i].preview + "'></audio><p>" + musiques.data[i].title + "</p><p>" + musiques.data[i].artist.name + " - " + musiques.data[i].album.title + "</p><span class='hiddenInf'>" + musiques.data[i].id + "</span></div>")
+             }
+             for (var j = 1; j < Object.keys(localStorage).length; j++) {
+                 for (var k = 0; k < $('.mainSearch').children('.musique').children().length; k++) {
+                     if (JSON.parse(localStorage.getItem(Object.keys(localStorage)[j]))[4] == musiques.data[k].id) {
+                         $('.mainSearch').children('.musique').children('div:nth-of-type(' + (k + 1) + ')').children('i').css('color', 'rgb(223, 177, 26)');
+                         $('.mainSearch').children('.musique').children('div:nth-of-type(' + (k + 1) + ')').children('i').removeClass('far');
+                         $('.mainSearch').children('.musique').children('div:nth-of-type(' + (k + 1) + ')').children('i').addClass('fas');
+                         //$('.mainSearch').children('.musique').children('div:nth-of-type(' + (k + 1) + ')').children('button').children('span').html('music' + j)
+                     }
+                 }
+             }
+         })
      })
-    })
+
+     $('.actuMusic .buttonAlbum button').click(function () {
+         console.log($(this).text())
+         $.ajax({
+             url: 'https://api.deezer.com/search?q=album:"' + $(this).text() + '"&output=jsonp',
+             dataType: 'jsonp'
+         }).done(function (musiques) {
+             console.log(musiques)
+             $('.mainSearch').children('.musique').html('');
+             // Affichage des musiques obtenues après l'envoi du formulaire
+
+             for (var i = 0; i < 15; i++) {
+                 $('.mainSearch').children('.musique').append("<div class='music-cartouche'><i class='far fa-star buttonFav'></i><img src='" + musiques.data[i].album.cover_medium + "'></img><audio controls><source src='" + musiques.data[i].preview + "'></audio><p>" + musiques.data[i].title + "</p><p>" + musiques.data[i].artist.name + " - " + musiques.data[i].album.title + "</p><span class='hiddenInf'>" + musiques.data[i].id + "</span></div>")
+             }
+             for (var j = 1; j < Object.keys(localStorage).length; j++) {
+                 for (var k = 0; k < $('.mainSearch').children('.musique').children().length; k++) {
+                     if (JSON.parse(localStorage.getItem(Object.keys(localStorage)[j]))[4] == musiques.data[k].id) {
+                         $('.mainSearch').children('.musique').children('div:nth-of-type(' + (k + 1) + ')').children('i').css('color', 'rgb(223, 177, 26)');
+                         $('.mainSearch').children('.musique').children('div:nth-of-type(' + (k + 1) + ')').children('i').removeClass('far');
+                         $('.mainSearch').children('.musique').children('div:nth-of-type(' + (k + 1) + ')').children('i').addClass('fas');
+                         //$('.mainSearch').children('.musique').children('div:nth-of-type(' + (k + 1) + ')').children('button').children('span').html('music' + j)
+                     }
+                 }
+             }
+         })
+     })
 
      // Ajout d'une musique en favori au clic sur le bouton favori
 
