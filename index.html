@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DeezWeb</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <style>
         main {
             padding: 50px 5% 0 5%;
@@ -37,8 +38,8 @@
             font-size: 1.5rem
         }
         
-        .buttonFav {
-            background-color: red
+        .music-cartouche .fa-star {
+            color: rgb(223, 177, 26)
         }
     </style>
 </head>
@@ -46,10 +47,17 @@
 <body>
     <header>
         <nav>
+            <i class="far fa-play-circle"></i>
             <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="search.html">Rechercher</a></li>
-                <li><a href="fav.html">Mes favoris</a></li>
+                <a href="index.html">
+                    <li>Accueil</li>
+                </a>
+                <a href="search.html">
+                    <li>Rechercher</li>
+                </a>
+                <a href="fav.html">
+                    <li>Mes favoris</li>
+                </a>
             </ul>
         </nav>
     </header>

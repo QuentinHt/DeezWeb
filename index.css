@@ -5,9 +5,21 @@ body {
 header nav {
     background-color: rgb(48, 48, 48);
     height: 40px;
-    padding: 5px 0;
+    padding: 5px 20px;
     position: fixed;
-    width: 100%
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+header nav i {
+    font-size: 1.5rem;
+    color: rgb(223, 177, 26);
+    margin-right: 30px;
 }
 
 header nav ul {
@@ -33,9 +45,10 @@ header nav ul li {
     transition: 0.5s
 }
 
-header nav ul li a {
+header nav ul a {
     color: white;
-    text-decoration: none
+    text-decoration: none;
+    height: 40px;
 }
 
 header nav ul li:hover {
@@ -44,25 +57,53 @@ header nav ul li:hover {
     transition: 0.5s
 }
 
-header nav ul li:nth-of-type(2) {
+header nav a:nth-of-type(2) li {
     border-left: 2px solid white;
     border-right: 2px solid white
 }
 
 main {
+    padding-top: 50px;
+}
+
+.mainIndex {
     padding: 50px 5% 0 5%;
 }
 
 .music-cartouche {
     height: 300px;
     width: 300px;
-    border: 1px solid black;
+    padding: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 30px;
+    font-family: sans-serif
+}
+
+.music-cartouche .fa-star {
+    position: absolute;
+    margin-left: 130px;
+    margin-top: -130px;
+    font-size: 1.3rem;
+    color: black;
+    cursor: pointer
 }
 
 .music-cartouche img {
-    width: 150px;
-    margin-left: 75px;
-    margin-top: 10px;
+    width: 175px;
+    box-shadow: 0 0 10px black;
+    margin-bottom: 15px;
 }
 
 .music-cartouche .row1 span {
@@ -76,7 +117,8 @@ main {
 }
 
 .music-cartouche audio {
-    width: 100%
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .hiddenInf {
