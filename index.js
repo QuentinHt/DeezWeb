@@ -5,7 +5,6 @@
      function entierAleatoire(min, max) {
          return Math.floor(Math.random() * (max - min + 1)) + min;
      }
-
      // Initialisation de la valeur de CompteurCle dans le localStorage si elle n'existe pas déjà
 
      if (localStorage.getItem('compteurCle') == undefined) {
@@ -16,11 +15,25 @@
 
      // Si il y a des favoris, on récupère une musique aléatoirement parmis elle puis on l'affiche dans la page d'accueil
 
-     if (localStorage.getItem('compteurCle') != 0) {
+     if (Object.keys(localStorage).length != 1) {
          var favAleatoire = entierAleatoire(1, Object.keys(localStorage).length - 1);
          var valueFavIndex = JSON.parse(localStorage.getItem(Object.keys(localStorage)[favAleatoire]))
-         $('.mainIndex').children('section').html("<div class='music-cartouche'><img src='" + valueFavIndex[0] + "'></img><audio controls><source src='" + valueFavIndex[1] + "'></audio><p>" + valueFavIndex[2] + "</p><p>" + valueFavIndex[3] + "</p><button class='buttonFav'>Fav</button></div>")
+         $('.mainIndex').children('section').html("<div class='music-cartouche'><img src='" + valueFavIndex[0] + "'></img><audio controls><source src='" + valueFavIndex[1] + "'></audio><p>" + valueFavIndex[2] + "</p><p>" + valueFavIndex[3] + "</p><button class='buttonFav'>Fav</button><span class='hiddenInf'>" + valueFavIndex[4] + "</span></div>")
      }
+     $('.mainIndex').children('.SectionFav').on('click', '.buttonFav', function () {
+         for (var j = 1; j < Object.keys(localStorage).length; j++) {
+             if (JSON.parse(localStorage.getItem(Object.keys(localStorage)[j]))[4] == $(this).next('.hiddenInf').html()) {
+                 localStorage.removeItem(Object.keys(localStorage)[j])
+             }
+         }
+         if (Object.keys(localStorage).length == 1) {
+             $('.mainIndex').children('.SectionFav').html("<h1>Vous ne semblez pas avoir de favoris... Pourquoi ne pas aller faire un tour du côté de <a href='search.html'>nos musiques</a> pour retrouver vos titres préférés ?</h1>")
+         } else {
+             var favAleatoire = entierAleatoire(1, Object.keys(localStorage).length - 1);
+             var valueFavIndex = JSON.parse(localStorage.getItem(Object.keys(localStorage)[favAleatoire]))
+             $('.mainIndex').children('section').html("<div class='music-cartouche'><img src='" + valueFavIndex[0] + "'></img><audio controls><source src='" + valueFavIndex[1] + "'></audio><p>" + valueFavIndex[2] + "</p><p>" + valueFavIndex[3] + "</p><button class='buttonFav'>Fav</button><span class='hiddenInf'>" + valueFavIndex[4] + "</span></div>")
+         }
+     })
 
      // Search
 
@@ -66,7 +79,11 @@
 
          if ($(this).css('background-color') === "rgb(255, 0, 0)") {
              $(this).css('background-color', 'white');
-             localStorage.removeItem($(this).children('span').text())
+             for (var j = 1; j < Object.keys(localStorage).length; j++) {
+                 if (JSON.parse(localStorage.getItem(Object.keys(localStorage)[j]))[4] == $(this).next('.hiddenInf').html()) {
+                     localStorage.removeItem(Object.keys(localStorage)[j])
+                 }
+             }
          }
 
          // Si elle n'y est pas, on la rajoute dans le localStorage et on modifie sa forme.
@@ -88,12 +105,16 @@
 
      for (var i = 1; i < Object.keys(localStorage).length; i++) {
          var valueFav = JSON.parse(localStorage.getItem(Object.keys(localStorage)[i]))
-         $('.mainFav').children('.musicFav').append("<div class='music-cartouche'><img src='" + valueFav[0] + "'></img><audio controls><source src='" + valueFav[1] + "'></audio><p>" + valueFav[2] + "</p><p>" + valueFav[3] + "</p><button class='buttonFav'>Fav<span class='hiddenInf'>music" + i + "</span></button></div>")
+         $('.mainFav').children('.musicFav').append("<div class='music-cartouche'><img src='" + valueFav[0] + "'></img><audio controls><source src='" + valueFav[1] + "'></audio><p>" + valueFav[2] + "</p><p>" + valueFav[3] + "</p><button class='buttonFav'>Fav</button><span class='hiddenInf'>" + valueFav[4] + "</span></div>")
      }
 
      // Fontion pour retirer une musique des favori
 
      $('.mainFav').children('.musicFav').on('click', '.buttonFav', function () {
-         localStorage.removeItem($(this).children('span').text());
+         for (var j = 1; j < Object.keys(localStorage).length; j++) {
+             if (JSON.parse(localStorage.getItem(Object.keys(localStorage)[j]))[4] == $(this).next('.hiddenInf').html()) {
+                 localStorage.removeItem(Object.keys(localStorage)[j])
+             }
+         }
          $(this).parent().remove()
      })

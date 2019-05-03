@@ -34,21 +34,7 @@
 
         </section>
         <script src="node_modules/jquery/dist/jquery.min.js"></script>
-        <script>
-            // On affiche dans la page favori toutes les musiques conservées dans le localStorage
-
-            for (var i = 1; i < Object.keys(localStorage).length; i++) {
-                var valueFav = JSON.parse(localStorage.getItem(Object.keys(localStorage)[i]))
-                $('.musicFav').append("<div class='music-cartouche'><img src='" + valueFav[0] + "'></img><audio controls><source src='" + valueFav[1] + "'></audio><p>" + valueFav[2] + "</p><p>" + valueFav[3] + "</p><button class='buttonFav'>Fav<span class='hiddenInf'>music" + i + "</span></button></div>")
-            }
-
-            // Fontion pour retirer une musique des favori
-
-            $('.musicFav').on('click', '.buttonFav', function () {
-                localStorage.removeItem($(this).children('span').text());
-                $(this).parent().remove()
-            })
-        </script>
+        <script src="index.js"></script>
     </main>
 </body>
 
