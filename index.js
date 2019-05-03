@@ -107,7 +107,6 @@
 
                  // Affichage des musiques avec la requête ajax selon ce qui est tapé dans le formulaire
                  var valueSearch = $('.mainSearch #form-search select').val().split('-');
-                 console.log('https://api.deezer.com/search?q=' + valueSearch[0] + ':"' + $('#form-search input[type=text]').val() + '"&output=jsonp&order=' + valueSearch[1])
                  $.ajax({
                      url: 'https://api.deezer.com/search?q=' + valueSearch[0] + ':"' + $('#form-search input[type=text]').val() + '"&output=jsonp&order=' + valueSearch[1],
                      dataType: 'jsonp'
@@ -129,12 +128,10 @@
              // Fonction permettant d'afficher des musiques d'un des artistes du moment à l'aide de la rubrique prévue à cet effet à gauche
 
              $('.actuMusic .buttonArtist button').click(function () {
-                 console.log($(this).text())
                  $.ajax({
                      url: 'https://api.deezer.com/search?q=' + $(this).text() + '&output=jsonp&order=RANKING',
                      dataType: 'jsonp'
                  }).done(function (musiques) {
-                     console.log(musiques)
                      $('.mainSearch').children('.musique').html('');
                      afficheMusic(musiques, 15, '.mainSearch .musique')
                      verifFav(musiques, '.mainSearch .musique')
@@ -205,6 +202,7 @@
                          }
                      }
                      $(this).parent().remove()
+                     $('.mainFav').children('.musicFav').html('<h1>Vous ne semblez pas avoir de favoris... Pourquoi ne pas aller faire un tour du côté de <a href="search.html">nos musiques</a> pour retrouver vos titres préférés ?</h1>')
                  })
              } else {
                  $('.mainFav').children('.musicFav').html('<h1>Vous ne semblez pas avoir de favoris... Pourquoi ne pas aller faire un tour du côté de <a href="search.html">nos musiques</a> pour retrouver vos titres préférés ?</h1>')
