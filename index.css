@@ -79,13 +79,15 @@ main h1 {
     font-size: 3rem
 }
 
-main h1 a {
+main h1 a,
+main h2 a {
     color: rgb(105, 105, 105);
     -webkit-transition: 0.5s;
     transition: 0.5s
 }
 
-main h1 a:hover {
+main h1 a:hover,
+main h2 a:hover {
     color: rgb(54, 54, 54);
     -webkit-transition: 0.5s;
     transition: 0.5s
@@ -106,6 +108,15 @@ main section h1 {
 
 .mainIndex {
     padding: 50px 5% 0 5%;
+}
+
+.mainIndex .SectionFav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center
 }
 
 .mainIndex .music-cartouche .fa-star {
@@ -165,7 +176,6 @@ main section h1 {
 .mainSearch #form-search select {
     width: 60%;
     font-size: 0.8rem;
-    padding: 10px 0;
     height: 30px;
     border: 0;
 }
@@ -174,7 +184,6 @@ main section h1 {
     width: 40%;
     font-size: 1rem;
     margin-left: 30%;
-    height: 70px;
 }
 
 .mainSearch .musique {
@@ -186,6 +195,18 @@ main section h1 {
     height: 2px;
     background-color: white;
     margin: 20px 0
+}
+
+.mainSearch .actuMusic div {
+    padding: 0 10px
+}
+
+.mainSearch .actuMusic div button {
+    height: 25px;
+    border-radius: 10px;
+    border: 1px solid white;
+    background-color: white;
+    margin: 4px 4px
 }
 
 .mainSearch h1,
@@ -254,9 +275,7 @@ main section h1 {
 }
 
 .music-cartouche .fa-star {
-    position: absolute;
-    margin-left: 130px;
-    margin-top: -130px;
+    margin-left: calc(230px);
     font-size: 1.3rem;
     color: black;
     cursor: pointer

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -9,21 +9,14 @@
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Roboto+Mono" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <style>
-
-        
-        
-        
-        
-        
-        
-    </style>
 </head>
 
 <body>
     <header>
         <nav>
-            <i class="far fa-play-circle"></i>
+            <a href="index.html">
+                <i class="far fa-play-circle"></i>
+            </a>
             <ul>
                 <a href="index.html">
                     <li>Accueil</li>
@@ -44,11 +37,11 @@
                 <div class="order">
                     <label for="order">Trier par : </label>
                     <select id='order'>
-                        <option value="ALBUM_DESC">Album</option>
-                        <option value="ARTIST_DESC">Artiste</option>
-                        <option value="TRACK _DESC">Musique</option>
-                        <option value="RANKING" selected="selected">Les plus populaires</option>
-                        <option value="RATING_DESC">Les mieux notés</option>
+                        <option value="album-ALBUM_DESC">Album</option>
+                        <option value="artist-ARTIST_DESC">Artiste</option>
+                        <option value="track-TRACK _DESC">Musique</option>
+                        <option value="-RANKING" selected="selected">Les plus populaires</option>
+                        <option value="-RATING_DESC">Les mieux notés</option>
                     </select>
                 </div>
                 <input type="submit" value="Rechercher">

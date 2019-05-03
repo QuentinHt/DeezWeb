@@ -106,13 +106,14 @@
                  $('.mainSearch').children('.musique').html('');
 
                  // Affichage des musiques avec la requête ajax selon ce qui est tapé dans le formulaire
-
+                 var valueSearch = $('.mainSearch #form-search select').val().split('-');
+                 console.log('https://api.deezer.com/search?q=' + valueSearch[0] + ':"' + $('#form-search input[type=text]').val() + '"&output=jsonp&order=' + valueSearch[1])
                  $.ajax({
-                     url: 'https://api.deezer.com/search?q=' + $('#form-search input[type=text]').val() + '&output=jsonp&order=' + $('#form-search select').val(),
+                     url: 'https://api.deezer.com/search?q=' + valueSearch[0] + ':"' + $('#form-search input[type=text]').val() + '"&output=jsonp&order=' + valueSearch[1],
                      dataType: 'jsonp'
                  }).done(function (musiques) {
 
-                    // Si le résultat de la recherche ne contient rien, renvoie un message d'erreur, sinon affiche normalement les musiques
+                     // Si le résultat de la recherche ne contient rien, renvoie un message d'erreur, sinon affiche normalement les musiques
 
                      if (musiques.data == "") {
                          $('.mainSearch').children('.musique').html("<h1>Mince ! Il semblerait que votre recherche n'a rien donné, vérifiez l'ortographe et recommencez !<br<br>Sinon choisissez directement parmis nos catégories prédéfinies pour trouver les meilleurs titres du moment !</h1>");
